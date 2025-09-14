@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수도권 여행 가이드 - 서울, 경기도, 인천 여행의 모든 것</title>
+    <meta name="description" content="서울, 경기도, 인천의 최고의 여행지와 맛집을 찾아보세요. 관광지, 맛집, 쇼핑, 문화시설 등 수도권 여행의 모든 정보를 제공합니다.">
+    <meta name="keywords" content="수도권 여행, 서울 여행, 경기도 여행, 인천 여행, 맛집, 관광지, 여행 가이드">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 로딩 스피너 -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>여행지 정보를 불러오는 중...</p>
+    </div>
+
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h1>수도권 여행 가이드</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-section="home">
+                        <i class="fas fa-home"></i>
+                        <span>홈</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="favorites">
+                        <i class="fas fa-heart"></i>
+                        <span>즐겨찾기</span>
+                        <span class="favorites-count">0</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main">
+        <!-- 히어로 섹션 -->
+        <section class="hero">
+            <div class="hero-background">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">수도권 여행의 모든 것</h2>
+                    <p class="hero-subtitle">서울, 경기도, 인천의 숨겨진 보석 같은 여행지와 맛집을 발견하세요</p>
+
+                    <!-- 검색바 -->
+                    <div class="search-bar">
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchInput" class="search-input"
+                                   placeholder="여행지, 맛집, 지역명으로 검색하세요...">
+                            <button id="clearSearch" class="clear-search" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <button id="searchBtn" class="search-btn">
+                            <i class="fas fa-search"></i>
+                            <span>검색</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 필터 섹션 -->
+        <section class="filters">
+            <div class="container">
+                <!-- 지역 탭 -->
+                <div class="region-tabs">
+                    <button class="tab-btn active" data-region="전체">
+                        <i class="fas fa-globe-asia"></i>
+                        전체
+                    </button>
+                    <button class="tab-btn" data-region="서울">
+                        <i class="fas fa-city"></i>
+                        서울
+                    </button>
+                    <button class="tab-btn" data-region="경기도">
+                        <i class="fas fa-mountain"></i>
+                        경기도
+                    </button>
+                    <button class="tab-btn" data-region="인천">
+                        <i class="fas fa-ship"></i>
+                        인천
+                    </button>
+                </div>
+
+                <!-- 카테고리 필터 -->
+                <div class="category-filters">
+                    <button class="filter-btn active" data-category="전체">
+                        <i class="fas fa-th-large"></i>
+                        전체
+                    </button>
+                    <button class="filter-btn" data-category="관광지">
+                        <i class="fas fa-camera"></i>
+                        관광지
+                    </button>
+                    <button class="filter-btn" data-category="맛집">
+                        <i class="fas fa-utensils"></i>
+                        맛집
+                    </button>
+                    <button class="filter-btn" data-category="쇼핑">
+                        <i class="fas fa-shopping-bag"></i>
+                        쇼핑
+                    </button>
+                    <button class="filter-btn" data-category="문화시설">
+                        <i class="fas fa-palette"></i>
+                        문화시설
+                    </button>
+                    <button class="filter-btn" data-category="자연명소">
+                        <i class="fas fa-tree"></i>
+                        자연명소
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 결과 정보 -->
+        <section class="results-info">
+            <div class="container">
+                <div class="results-header">
+                    <h3 id="resultsTitle">전체 여행지</h3>
+                    <div class="results-count">
+                        <span id="resultsCount">0</span>개의 장소
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 카드 그리드 -->
+        <section class="card-grid-section">
+            <div class="container">
+                <div id="cardGrid" class="card-grid">
+                    <!-- 카드들이 여기에 동적으로 추가됩니다 -->
+                </div>
+
+                <!-- 결과 없음 메시지 -->
+                <div id="noResults" class="no-results" style="display: none;">
+                    <div class="no-results-content">
+                        <i class="fas fa-search"></i>
+                        <h3>검색 결과가 없습니다</h3>
+                        <p>다른 키워드로 검색하거나 필터를 변경해보세요.</p>
+                    </div>
+                </div>
+
+                <!-- 로드 더 버튼 -->
+                <div class="load-more-container">
+                    <button id="loadMoreBtn" class="load-more-btn" style="display: none;">
+                        <i class="fas fa-plus"></i>
+                        더 많은 장소 보기
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 상세 정보 모달 -->
+    <div id="detailModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title"></h3>
+                <div class="modal-actions">
+                    <button id="favoriteBtn" class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button id="closeModal" class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="">
+                    <div class="modal-category" id="modalCategory"></div>
+                </div>
+
+                <div class="modal-info">
+                    <div class="modal-rating">
+                        <div class="stars" id="modalStars"></div>
+                        <span class="rating-text" id="modalRating"></span>
+                    </div>
+
+                    <p class="modal-description" id="modalDescription"></p>
+
+                    <div class="modal-details">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>주소</strong>
+                                <span id="modalAddress"></span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item" id="phoneDetail">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>전화번호</strong>
+                                <span id="modalPhone"></span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>운영시간</strong>
+                                <span id="modalHours"></span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <i class="fas fa-won-sign"></i>
+                            <div>
+                                <strong>가격</strong>
+                                <span id="modalPrice"></span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item" id="websiteDetail">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <strong>웹사이트</strong>
+                                <a id="modalWebsite" href="" target="_blank" rel="noopener noreferrer"></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-tags" id="modalTags"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="getDirectionsBtn" class="directions-btn">
+                    <i class="fas fa-route"></i>
+                    길찾기
+                </button>
+                <button id="shareBtn" class="share-btn">
+                    <i class="fas fa-share-alt"></i>
+                    공유하기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>수도권 여행 가이드</span>
+                    </div>
+                    <p class="footer-description">
+                        서울, 경기도, 인천의 숨은 보석 같은 여행지와 맛집을 발견하세요.
+                        <br>더 나은 여행 경험을 위한 완벽한 가이드입니다.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>지역</h4>
+                        <ul>
+                            <li><a href="#" data-region="서울">서울</a></li>
+                            <li><a href="#" data-region="경기도">경기도</a></li>
+                            <li><a href="#" data-region="인천">인천</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>카테고리</h4>
+                        <ul>
+                            <li><a href="#" data-category="관광지">관광지</a></li>
+                            <li><a href="#" data-category="맛집">맛집</a></li>
+                            <li><a href="#" data-category="문화시설">문화시설</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 수도권 여행 가이드. Made with ❤️ for travelers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 맨 위로 버튼 -->
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
